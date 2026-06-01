@@ -1,0 +1,25 @@
+---
+import Layout from "./Layout.astro";
+import Nav from "../components/landing/Nav.astro";
+import Footer from "../components/landing/Footer.astro";
+
+interface Props {
+  title?: string;
+  description?: string;
+  canonicalUrl?: string;
+}
+
+const {
+  title = "ApogeOv — Ropa Oversize Premium Medellín | Tienda Online Colombia",
+  description = "Tienda online de ropa oversize premium en Medellín. Tela burda de alto gramaje. Envío gratis Valle de Aburrá. Paga cuando llega a tu casa.",
+  canonicalUrl,
+} = Astro.props;
+---
+
+<Layout title={title} description={description} canonicalUrl={canonicalUrl}>
+  <Nav />
+  <main id="main-content">
+    <slot />
+  </main>
+  <Footer />
+</Layout>

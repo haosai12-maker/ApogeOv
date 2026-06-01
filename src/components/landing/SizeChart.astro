@@ -1,0 +1,59 @@
+---
+const sizes = [
+  { size: "S", width: "55-56", chest: "110-112", length: "70-72", sleeve: "22-23" },
+  { size: "M", width: "57-59", chest: "114-118", length: "73-75", sleeve: "23-24" },
+  { size: "L", width: "60-62", chest: "120-124", length: "76-78", sleeve: "24-25" },
+  { size: "XL", width: "64-65", chest: "128-130", length: "79-81", sleeve: "25-26" },
+];
+---
+
+<section class="relative -mt-16 pt-16 min-h-svh w-full bg-muted py-16 lg:py-20" id="guia-de-tallas">
+  <div class="max-w-[1440px] mx-auto px-6 lg:px-[100px] w-full">
+    <div class="mb-8 md:mb-12">
+      <h2 class="text-3xl md:text-4xl lg:text-5xl font-black mb-3 uppercase">Guía de Tallas</h2>
+      <p class="text-muted-foreground normal-case font-normal tracking-normal max-w-xl">
+        Medidas aproximadas en centímetros. El corte es oversize, si estás entre tallas te recomendamos bajar una talla para un ajuste más ajustado al cuerpo.
+      </p>
+    </div>
+
+    <div class="overflow-x-auto max-w-3xl">
+      <table class="w-full border-collapse bg-card border border-border text-sm">
+        <thead>
+          <tr class="bg-foreground text-white">
+            <th class="px-4 py-3 text-left font-black uppercase tracking-wider border-b border-border">Talla</th>
+            <th class="px-4 py-3 text-left font-black uppercase tracking-wider border-b border-border">Ancho<br><span class="font-normal text-xs normal-case tracking-normal">(axila a axila)</span></th>
+            <th class="px-4 py-3 text-left font-black uppercase tracking-wider border-b border-border">Contorno<br><span class="font-normal text-xs normal-case tracking-normal">de pecho</span></th>
+            <th class="px-4 py-3 text-left font-black uppercase tracking-wider border-b border-border">Largo<br><span class="font-normal text-xs normal-case tracking-normal">total</span></th>
+            <th class="px-4 py-3 text-left font-black uppercase tracking-wider border-b border-border">Largo<br><span class="font-normal text-xs normal-case tracking-normal">de manga</span></th>
+          </tr>
+        </thead>
+        <tbody>
+          {
+            sizes.map((item, index) => (
+              <tr class={index % 2 === 0 ? "bg-card" : "bg-muted"}>
+                <td class="px-4 py-3 font-black border-b border-border">{item.size}</td>
+                <td class="px-4 py-3 border-b border-border">{item.width} cm</td>
+                <td class="px-4 py-3 border-b border-border">{item.chest} cm</td>
+                <td class="px-4 py-3 border-b border-border">{item.length} cm</td>
+                <td class="px-4 py-3 border-b border-border">{item.sleeve} cm</td>
+              </tr>
+            ))
+          }
+        </tbody>
+      </table>
+    </div>
+
+    <p class="mt-6 text-sm text-muted-foreground normal-case font-normal tracking-normal">
+      ¿Dudas sobre qué talla elegir?
+      <a
+        href="https://wa.me/573148499976"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="underline hover:text-foreground transition-colors"
+      >
+        Escríbenos al WhatsApp
+      </a>
+      y te ayudamos.
+    </p>
+  </div>
+</section>

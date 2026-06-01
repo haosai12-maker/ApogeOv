@@ -1,0 +1,259 @@
+---
+// @ts-nocheck
+import Icon from "../Icon.astro";
+import SocialIcon from "../SocialIcon.astro";
+import { contact } from "../../data/contact";
+import { navLinks } from "../../data/nav";
+
+const linkClass = "hover:text-accent transition-colors whitespace-nowrap text-white";
+const drawerLinkClass =
+  "block py-4 text-base uppercase tracking-wide border-b border-border hover:text-accent transition-colors text-white";
+const socialIconClass = "h-5 w-5 text-foreground";
+const socialLinkClass =
+  "flex items-center justify-center w-8 h-8 rounded-full bg-white hover:opacity-80 transition-opacity";
+
+const socialLinks = [
+  { brand: "tiktok", href: contact.tiktok, label: "TikTok" },
+  { brand: "instagram", href: contact.instagram, label: "Instagram" },
+  { brand: "whatsapp", href: `https://wa.me/${contact.whatsapp}`, label: "WhatsApp" },
+] as const;
+---
+
+<nav class="sticky top-0 z-50 bg-foreground text-white border-b border-foreground">
+  <div class="max-w-[1440px] mx-auto px-6 lg:px-[100px]">
+    <div class="flex items-center justify-between h-16 gap-4">
+      <button
+        type="button"
+        class="nav-hamburger flex lg:!hidden shrink-0 p-2 -ml-1"
+        data-nav-open
+        aria-expanded="false"
+        aria-controls="nav-drawer-panel"
+        aria-label="Abrir menú"
+      >
+        <span class="nav-hamburger__bar" aria-hidden="true"></span>
+        <span class="nav-hamburger__bar" aria-hidden="true"></span>
+        <span class="nav-hamburger__bar" aria-hidden="true"></span>
+      </button>
+
+      <div class="flex items-center gap-6 lg:gap-12 min-w-0 flex-1 lg:flex-initial justify-center lg:justify-start">
+        <a href="/" class="shrink-0 hover:opacity-80 transition-opacity" aria-label="ApogeOv — inicio">
+          <img src="/images/LogoO.png" alt="ApogeOv" class="h-8 lg:h-10 w-auto" />
+        </a>
+
+        <div class="hidden lg:flex items-center gap-8 text-sm uppercase tracking-wide">
+          {navLinks.map((link) => (
+            <a href={link.href} class={linkClass}>
+              {link.label}
+            </a>
+          ))}
+        </div>
+      </div>
+
+      <div class="flex items-center gap-3 sm:gap-4 shrink-0">
+        {
+          socialLinks.map((social) => (
+            <a
+              href={social.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              class={socialLinkClass}
+              aria-label={social.label}
+            >
+              <SocialIcon brand={social.brand} class={socialIconClass} />
+            </a>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+
+  <!-- Drawer móvil -->
+  <div
+    class="nav-drawer lg:hidden"
+    data-nav-drawer
+    data-open="false"
+    aria-hidden="true"
+  >
+    <div
+      class="nav-drawer__backdrop"
+      data-nav-backdrop
+      aria-hidden="true"
+    ></div>
+
+    <aside
+      id="nav-drawer-panel"
+      class="nav-drawer__panel"
+      data-nav-panel
+      role="dialog"
+      aria-modal="true"
+      aria-label="Menú de navegación"
+    >
+      <div class="nav-drawer__header flex items-center justify-between h-16 px-5 border-b border-border shrink-0">
+        <span class="text-sm font-black tracking-tight uppercase text-white">Menú</span>
+        <button
+          type="button"
+          class="nav-drawer__close flex items-center gap-2 text-sm uppercase tracking-wide hover:text-accent transition-colors"
+          data-nav-close
+          aria-label="Cerrar menú"
+        >
+          <Icon name="x" class="w-5 h-5" />
+          <span>Cerrar</span>
+        </button>
+      </div>
+
+      <nav class="nav-drawer__nav flex-1 overflow-y-auto px-5 py-2" aria-label="Secciones">
+        {navLinks.map((link, index) => (
+          <a
+            href={link.href}
+            class={`nav-drawer__link ${drawerLinkClass}`}
+            style={`--i: ${index}`}
+          >
+            {link.label}
+          </a>
+        ))}
+      </nav>
+
+      <div class="nav-drawer__footer px-5 py-6 border-t border-border flex gap-5 shrink-0">
+        {
+          socialLinks.map((social, index) => (
+            <a
+              href={social.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              class={`nav-drawer__social ${socialLinkClass}`}
+              style={`--i: ${index}`}
+              aria-label={social.label}
+            >
+              <SocialIcon brand={social.brand} class="h-6 w-6" />
+            </a>
+          ))
+        }
+      </div>
+    </aside>
+  </div>
+</nav>
+
+<style>
+  /* Hamburguesa → X (solo móvil; display lo controla Tailwind flex + lg:hidden) */
+  .nav-hamburger {
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    width: 2.5rem;
+    height: 2.5rem;
+  }
+
+  @media (min-width: 1024px) {
+    .nav-hamburger {
+      display: none !important;
+    }
+  }
+
+  .nav-hamburger__bar {
+    display: block;
+    width: 1.35rem;
+    height: 2px;
+    background: white;
+    border-radius: 1px;
+    transition:
+      transform 0.4s cubic-bezier(0.32, 0.72, 0, 1),
+      opacity 0.25s ease,
+      width 0.3s ease;
+    transform-origin: center;
+  }
+
+  .nav-hamburger[aria-expanded="true"] .nav-hamburger__bar:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+  }
+
+  .nav-hamburger[aria-expanded="true"] .nav-hamburger__bar:nth-child(2) {
+    opacity: 0;
+    transform: scaleX(0);
+  }
+
+  .nav-hamburger[aria-expanded="true"] .nav-hamburger__bar:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
+  }
+
+  .nav-drawer {
+    position: fixed;
+    inset: 0;
+    z-index: 60;
+    pointer-events: none;
+  }
+
+  .nav-drawer.is-active {
+    pointer-events: auto;
+  }
+
+  .nav-drawer__backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgb(0 0 0 / 0.7);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+  }
+
+  .nav-drawer[data-open="true"] .nav-drawer__backdrop {
+    opacity: 1;
+  }
+
+  /* Panel: entra y sale deslizándose desde la izquierda */
+  .nav-drawer__panel {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: min(300px, 90vw);
+    max-width: 100%;
+    display: flex;
+    flex-direction: column;
+    background: var(--foreground);
+    color: white;
+    box-shadow: 8px 0 32px rgb(0 0 0 / 0.15);
+    transform: translate3d(-100%, 0, 0);
+    transition: transform 0.4s cubic-bezier(0.32, 0.72, 0, 1);
+    will-change: transform;
+    overflow-x: hidden;
+  }
+
+  .nav-drawer__panel .border-border {
+    border-color: rgb(255 255 255 / 0.2);
+  }
+
+  .nav-drawer__header {
+    border-color: rgb(255 255 255 / 0.2) !important;
+  }
+
+  .nav-drawer__footer {
+    border-color: rgb(255 255 255 / 0.2) !important;
+  }
+
+  .nav-drawer[data-open="true"] .nav-drawer__panel {
+    transform: translate3d(0, 0, 0);
+  }
+
+  .nav-drawer__close:active {
+    opacity: 0.7;
+  }
+
+  :global(body.nav-drawer-open) {
+    overflow: hidden;
+  }
+
+  :global(html.nav-drawer-open) {
+    overflow: hidden;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .nav-hamburger__bar,
+    .nav-drawer__backdrop,
+    .nav-drawer__panel {
+      transition-duration: 0.01ms !important;
+    }
+  }
+</style>
+
+<script>
+  import "../../scripts/nav-drawer.ts";
+</script>

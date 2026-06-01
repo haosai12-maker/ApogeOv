@@ -1,0 +1,46 @@
+---
+// @ts-nocheck
+import Icon from "../Icon.astro";
+---
+
+<section class="bg-foreground text-white py-10 lg:py-8">
+  <div class="max-w-[1440px] mx-auto px-6 lg:px-[100px]">
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 lg:gap-0 divide-y sm:divide-y-0 sm:divide-x divide-white/10">
+      <div class="flex flex-col items-center text-center px-4 py-6 sm:py-0 gap-3">
+        <div class="w-12 h-12 rounded-full bg-accent/10 flex items-center justify-center">
+          <Icon name="map-pin" class="w-6 h-6 text-accent" />
+        </div>
+        <div>
+          <h4 class="text-sm uppercase tracking-wider font-black mb-1">Envíos Gratis</h4>
+          <p class="text-xs text-white/70 normal-case font-normal tracking-normal">
+            A todo el Valle de Aburrá
+          </p>
+        </div>
+      </div>
+
+      <div class="flex flex-col items-center text-center px-4 py-6 sm:py-0 gap-3">
+        <div class="w-12 h-12 rounded-full bg-accent/10 flex items-center justify-center">
+          <Icon name="credit-card" class="w-6 h-6 text-accent" />
+        </div>
+        <div>
+          <h4 class="text-sm uppercase tracking-wider font-black mb-1">Pago Contraentrega</h4>
+          <p class="text-xs text-white/70 normal-case font-normal tracking-normal">
+            Paga cuando recibas tu pedido
+          </p>
+        </div>
+      </div>
+
+      <div class="flex flex-col items-center text-center px-4 py-6 sm:py-0 gap-3">
+        <div class="w-12 h-12 rounded-full bg-accent/10 flex items-center justify-center">
+          <Icon name="ruler" class="w-6 h-6 text-accent" />
+        </div>
+        <div>
+          <h4 class="text-sm uppercase tracking-wider font-black mb-1">Guía de Tallas</h4>
+          <p class="text-xs text-white/70 normal-case font-normal tracking-normal">
+            Encuentra tu fit oversize perfecto
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

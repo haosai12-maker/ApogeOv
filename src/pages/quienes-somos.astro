@@ -1,0 +1,33 @@
+---
+import SiteLayout from "../layouts/SiteLayout.astro";
+import About from "../components/landing/About.astro";
+
+const breadcrumbSchema = JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Inicio",
+      "item": "https://apogeov.com/",
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Quiénes Somos",
+      "item": "https://apogeov.com/quienes-somos",
+    },
+  ],
+});
+---
+
+<script type="application/ld+json" set:html={breadcrumbSchema}></script>
+
+<SiteLayout
+  title="Quiénes Somos — Streetwear Oversize Premium Medellín | ApogeOv"
+  description="Conoce ApogeOv: marca de streetwear oversize premium en Medellín. Seleccionamos tela burda de alto gramaje. Pago contraentrega. Envíos a todo Colombia."
+  canonicalUrl="https://apogeov.com/quienes-somos"
+>
+  <About />
+</SiteLayout>

@@ -1,0 +1,108 @@
+---
+const faqs = [
+  {
+    id: "envios",
+    q: "¿Hacen envíos a todo Colombia?",
+    a: "Sí. Envío gratis en el Valle de Aburrá. Para el resto del país coordinamos envío con transportadora; el costo y tiempo dependen de tu ciudad.",
+  },
+  {
+    q: "¿Puedo pagar contraentrega?",
+    a: "Sí, aceptamos pago contraentrega en zonas habilitadas. Pagas cuando recibes tu pedido, después de revisar el empaque.",
+  },
+  {
+    id: "tallas",
+    q: "¿Cómo elijo mi talla oversized?",
+    a: "Todas nuestras prendas tienen un amplio rango de tallas para que encuentres el ajuste perfecto. Consulta la tabla de medidas más abajo para comparar con tus prendas favoritas.",
+    showButton: true,
+  },
+  {
+    q: "¿Cuánto tarda en llegar mi pedido?",
+    a: "En Medellín y área metropolitana suele ser de 1 a 3 días hábiles. A otras ciudades puede tomar entre 3 y 7 días hábiles según la transportadora.",
+  },
+  {
+    id: "devoluciones",
+    q: "¿Puedo cambiar o devolver una prenda?",
+    a: "Si llega con defecto de fábrica o error en talla/color, contáctanos en las primeras 48 horas con fotos. Evaluamos cambio según disponibilidad de stock.",
+  },
+  {
+    q: "¿Los productos del catálogo son los mismos de la web?",
+    a: "Sí, el catálogo en línea muestra la colección actual disponible. Si un producto se agota, lo actualizamos y puedes preguntar por reposición por WhatsApp.",
+  },
+];
+
+const faqSchema = JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqs.map((f) => ({
+    "@type": "Question",
+    "name": f.q,
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": f.a,
+    },
+  })),
+});
+---
+
+<script type="application/ld+json" set:html={faqSchema}></script>
+
+<section
+  class="relative -mt-16 pt-16 min-h-svh w-full bg-muted py-16 lg:py-20"
+  id="faq"
+>
+  <div class="max-w-[1440px] mx-auto px-6 lg:px-[100px] w-full">
+    <div class="mb-8 md:mb-12">
+      <h2 class="text-3xl md:text-4xl lg:text-5xl font-black mb-3 uppercase">Preguntas frecuentes</h2>
+      <p class="text-muted-foreground normal-case font-normal tracking-normal max-w-xl">
+        Resolvemos lo más común sobre envíos, tallas y pedidos. ¿Otra duda? Ve a{" "}
+        <a href="/#contacto" class="text-foreground underline hover:text-accent transition-colors">
+          Contáctanos
+        </a>
+        .
+      </p>
+    </div>
+
+    <div class="max-w-3xl space-y-3">
+      {
+        faqs.map((item, index) => (
+          <details
+            id={item.id}
+            class="faq-item group bg-card border border-border"
+            style={`--delay: ${index * 40}ms`}
+          >
+            <summary class="flex cursor-pointer list-none items-center justify-between gap-4 px-5 py-4 text-sm uppercase tracking-wider [&::-webkit-details-marker]:hidden">
+              {item.q}
+              <span
+                class="text-accent text-lg leading-none transition-transform group-open:rotate-45"
+                aria-hidden="true"
+              >
+                +
+              </span>
+            </summary>
+            <div class="px-5 pb-4 border-t border-border pt-4">
+              <p class="text-sm text-muted-foreground normal-case font-normal tracking-normal leading-relaxed mb-3">
+                {item.a}
+              </p>
+              {
+                item.showButton && (
+                  <a
+                    href="#guia-de-tallas"
+                    class="inline-flex items-center gap-2 px-4 py-3 bg-foreground text-white text-xs uppercase tracking-wider font-black hover:bg-accent transition-colors cursor-pointer"
+                  >
+                    Ver tabla de medidas
+                  </a>
+                )
+              }
+            </div>
+          </details>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .faq-item[open] summary {
+    color: var(--foreground);
+  }
+</style>
