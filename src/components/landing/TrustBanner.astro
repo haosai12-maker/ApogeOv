@@ -3,40 +3,40 @@
 import Icon from "../Icon.astro";
 ---
 
-<section class="bg-foreground text-white py-10 lg:py-8">
+<section class="bg-foreground text-white py-12 lg:py-16">
   <div class="max-w-[1440px] mx-auto px-6 lg:px-[100px]">
-    <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 lg:gap-0 divide-y sm:divide-y-0 sm:divide-x divide-white/10">
-      <div class="flex flex-col items-center text-center px-4 py-6 sm:py-0 gap-3">
-        <div class="w-12 h-12 rounded-full bg-accent/10 flex items-center justify-center">
-          <Icon name="map-pin" class="w-6 h-6 text-accent" />
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-0 divide-y md:divide-y-0 md:divide-x divide-white/10 stagger-children">
+      <div class="trust-item group py-6 md:py-0 md:px-8 lg:px-12">
+        <div class="trust-item__icon">
+          <Icon name="map-pin" class="w-5 h-5" />
         </div>
         <div>
-          <h4 class="text-sm uppercase tracking-wider font-black mb-1">Envíos Gratis</h4>
-          <p class="text-xs text-white/70 normal-case font-normal tracking-normal">
+          <h4 class="font-display text-lg uppercase tracking-tight mb-1">Envíos Gratis</h4>
+          <p class="text-xs text-white/50 normal-case font-normal tracking-normal">
             A todo el Valle de Aburrá
           </p>
         </div>
       </div>
 
-      <div class="flex flex-col items-center text-center px-4 py-6 sm:py-0 gap-3">
-        <div class="w-12 h-12 rounded-full bg-accent/10 flex items-center justify-center">
-          <Icon name="credit-card" class="w-6 h-6 text-accent" />
+      <div class="trust-item group py-6 md:py-0 md:px-8 lg:px-12">
+        <div class="trust-item__icon">
+          <Icon name="credit-card" class="w-5 h-5" />
         </div>
         <div>
-          <h4 class="text-sm uppercase tracking-wider font-black mb-1">Pago Contraentrega</h4>
-          <p class="text-xs text-white/70 normal-case font-normal tracking-normal">
+          <h4 class="font-display text-lg uppercase tracking-tight mb-1">Pago Contraentrega</h4>
+          <p class="text-xs text-white/50 normal-case font-normal tracking-normal">
             Paga cuando recibas tu pedido
           </p>
         </div>
       </div>
 
-      <div class="flex flex-col items-center text-center px-4 py-6 sm:py-0 gap-3">
-        <div class="w-12 h-12 rounded-full bg-accent/10 flex items-center justify-center">
-          <Icon name="ruler" class="w-6 h-6 text-accent" />
+      <div class="trust-item group py-6 md:py-0 md:px-8 lg:px-12">
+        <div class="trust-item__icon">
+          <Icon name="ruler" class="w-5 h-5" />
         </div>
         <div>
-          <h4 class="text-sm uppercase tracking-wider font-black mb-1">Guía de Tallas</h4>
-          <p class="text-xs text-white/70 normal-case font-normal tracking-normal">
+          <h4 class="font-display text-lg uppercase tracking-tight mb-1">Guía de Tallas</h4>
+          <p class="text-xs text-white/50 normal-case font-normal tracking-normal">
             Encuentra tu fit oversize perfecto
           </p>
         </div>
@@ -44,3 +44,43 @@ import Icon from "../Icon.astro";
     </div>
   </div>
 </section>
+
+<style>
+  .trust-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .trust-item__icon {
+    width: 3rem;
+    height: 3rem;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: rgb(232 93 4 / 0.12);
+    color: var(--accent);
+    transition: background 0.3s ease, transform 0.3s ease;
+  }
+
+  .trust-item:hover .trust-item__icon {
+    background: var(--accent);
+    color: white;
+    transform: scale(1.05);
+  }
+
+  @media (min-width: 768px) {
+    .trust-item {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 1.25rem;
+    }
+
+    .trust-item__icon {
+      width: 3.5rem;
+      height: 3.5rem;
+    }
+  }
+</style>

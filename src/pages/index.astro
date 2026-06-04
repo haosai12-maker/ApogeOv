@@ -4,9 +4,32 @@ import LandingPage from "../components/LandingPage.astro";
 ---
 
 <SiteLayout
-  title="ApogeOv — Ropa Oversize Premium Medellín | Tienda Online Colombia"
-  description="Tienda online de ropa oversize premium en Medellín. Tela burda de alto gramaje. Envío gratis Valle de Aburrá. Paga cuando llega a tu casa."
+  title="Camisetas Oversize Básicas Medellín | Combos Streetwear desde $75.000"
+  description="Camisetas oversize de fábrica premium a $75.000. Combos urbanos con pantaloneta ($115k) y sudadera ($125k). Envíos a Medellín, Envigado, Sabaneta, Bello y todo Colombia."
   canonicalUrl="https://apogeov.com/"
 >
   <LandingPage />
+  <Fragment slot="structured-data">
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Product",
+        "name": "Camisetas Oversize Básicas de Fábrica y Combos Streetwear ApogeOv",
+        "description": "Camisetas oversize premium lisas de fábrica desde $75.000 COP. Combos urbanos con pantaloneta ($115.000) y sudadera ($125.000). Tela burda de alto gramaje, corte boxy fit. Envíos a Medellín, Envigado, Sabaneta, Bello y todo Colombia.",
+        "brand": { "@type": "Brand", "name": "ApogeOv" },
+        "offers": {
+          "@type": "AggregateOffer",
+          "lowPrice": "75000",
+          "highPrice": "125000",
+          "priceCurrency": "COP",
+          "offerCount": "10",
+          "availability": "https://schema.org/InStock",
+          "areaServed": {
+            "@type": "City",
+            "name": "Medellín"
+          }
+        }
+      }
+    </script>
+  </Fragment>
 </SiteLayout>

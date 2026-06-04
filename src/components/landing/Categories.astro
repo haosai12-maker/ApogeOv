@@ -1,6 +1,5 @@
 ---
 // @ts-nocheck
-import Icon from "../Icon.astro";
 import { loadProducts } from "../../data/load-products";
 
 const featuredIds = ["producto-1", "producto-5", "producto-10"];
@@ -10,87 +9,82 @@ const featuredProducts = featuredIds
   .filter(Boolean);
 ---
 
-<section class="max-w-[1440px] mx-auto px-6 lg:px-[100px] py-20 lg:py-28" id="destacados">
-  <div class="featured-carousel overflow-hidden" data-featured-carousel>
-    <div
-      class="featured-inner flex gap-4 sm:gap-6 transition-transform duration-500 ease-in-out"
-      data-featured-inner
-    >
+<section class="bg-foreground text-white py-20 lg:py-32" id="destacados">
+  <div class="max-w-[1440px] mx-auto px-6 lg:px-[100px]">
+    <div class="mb-10 md:mb-16 reveal-up">
+      <span class="inline-block text-xs uppercase tracking-[0.2em] text-accent font-bold mb-2">
+        Lo más vendido
+      </span>
+      <h2 class="font-display font-bold text-4xl md:text-5xl lg:text-6xl uppercase tracking-tight">
+        Selección Top
+      </h2>
+      <p class="text-sm md:text-base text-white/60 normal-case font-normal tracking-normal mt-2 max-w-lg">
+        Las prendas que definen el estilo ApogeOv.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 stagger-children">
       {
         featuredProducts.map((product, index) => (
-          <div
-            class="featured-slide flex-shrink-0 w-[88%] max-w-[320px] sm:w-[calc(50%-12px)] sm:max-w-none lg:w-[calc(33.333%-16px)]"
-            data-featured-slide
+          <a
+            href="#catalogo"
+            class="featured-editorial-card group relative overflow-hidden grain-overlay"
+            data-featured-product={product.id}
+            aria-label={`Ver ${product.name} en el catálogo`}
           >
-            <a
-              href="#catalogo"
-              class="group relative block overflow-hidden aspect-[3/4] bg-muted"
-              data-featured-product={product.id}
-              aria-label={`Ver ${product.name} en Nuevos Drops`}
-            >
-              <img
-                src={product.image}
-                alt={`Camiseta oversize ${product.name} de ApogeOv — vista del producto`}
-                class="absolute inset-0 w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
-                loading={index === 0 ? "eager" : "lazy"}
-                decoding="async"
-              />
-              <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
+            <img
+              src={product.image}
+              alt={`${product.name} de ApogeOv — producto destacado`}
+              class="absolute inset-0 w-full h-full object-cover object-center transition-transform duration-700 ease-out group-hover:scale-105"
+              loading={index === 0 ? "eager" : "lazy"}
+              decoding="async"
+            />
 
-              <div class="absolute top-6 left-6">
-                <span class="inline-block px-3 py-1 text-xs uppercase tracking-wider bg-accent text-white">
-                  {product.fabric}
-                </span>
-              </div>
+            <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-black/10 z-[1] transition-opacity duration-500 group-hover:from-black/95" />
 
-              <div class="absolute bottom-6 left-6 right-6">
-                <h3 class="text-white text-lg md:text-xl lg:text-3xl font-black mb-2 uppercase leading-tight">
-                  {product.name}
-                </h3>
-                <p class="text-white/90 text-base md:text-lg font-black mb-3 normal-case tracking-normal">
-                  ${product.price} COP
-                </p>
-                <div class="flex items-center gap-2 text-white text-xs md:text-sm uppercase tracking-wide">
-                  <span>Explorar</span>
-                  <Icon
-                    name="chevron-right"
-                    class="w-4 h-4 group-hover:translate-x-1 transition-transform"
-                  />
-                </div>
+            <div class="absolute top-6 left-6 z-[2]">
+              <span class="inline-block px-3 py-1 text-[0.6rem] uppercase tracking-[0.15em] font-bold bg-accent text-white">
+                {product.fabric}
+              </span>
+            </div>
+
+            <div class="absolute bottom-0 left-0 right-0 z-[2] p-6 md:p-8 transition-transform duration-500 group-hover:translate-y-[-4px]">
+              <h3 class="font-display text-2xl md:text-3xl font-bold uppercase tracking-tight mb-2 leading-tight">
+                {product.name}
+              </h3>
+              <p class="text-accent text-xl md:text-2xl font-black mb-4 normal-case tracking-normal">
+                ${product.price} COP
+              </p>
+              <div class="flex items-center gap-2 text-xs uppercase tracking-[0.15em] text-white/80">
+                <span>Ir al catálogo</span>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-4 h-4 group-hover:translate-x-1 transition-transform">
+                  <path d="M5 12h14M12 5l7 7-7 7"/>
+                </svg>
               </div>
-            </a>
-          </div>
+            </div>
+          </a>
         ))
       }
     </div>
-
-    <div class="featured-carousel__dots flex justify-center gap-2 mt-6 lg:hidden" data-featured-dots></div>
   </div>
 </section>
 
-<script>
-  import "../../scripts/featured-carousel.ts";
-</script>
-
 <style>
-  .featured-carousel__dot {
-    width: 0.5rem;
-    height: 0.5rem;
-    padding: 0;
-    border: none;
-    border-radius: 9999px;
-    background: var(--border);
-    cursor: pointer;
+  .featured-editorial-card {
+    aspect-ratio: 3 / 4;
+    min-height: 380px;
   }
 
-  .featured-carousel__dot.is-active {
-    background: var(--accent);
-    transform: scale(1.2);
+  @media (min-width: 768px) {
+    .featured-editorial-card {
+      aspect-ratio: 2 / 3;
+      min-height: 480px;
+    }
   }
 
   @media (min-width: 1024px) {
-    .featured-inner {
-      transform: none !important;
+    .featured-editorial-card {
+      min-height: 560px;
     }
   }
 </style>

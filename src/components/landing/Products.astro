@@ -1,54 +1,100 @@
 ---
 // @ts-nocheck
 import { loadProducts } from "../../data/load-products";
-import ProductCarousel from "../ProductCarousel.astro";
 
 const products = loadProducts();
 const productsJson = JSON.stringify(products);
+
+function getCardClass(index: number): string {
+  if (index === 0) return "editorial-card--hero";
+  if (index === 3 || index === 7) return "editorial-card--wide";
+  if (index === 5) return "editorial-card--tall";
+  return "";
+}
+
+function isNew(index: number): boolean {
+  return index <= 2;
+}
 ---
 
-<section class="bg-white py-20 lg:py-28" id="catalogo">
+<section class="bg-background py-20 lg:py-32" id="catalogo">
   <div class="max-w-[1440px] mx-auto px-6 lg:px-[100px]">
-    <div class="mb-8 md:mb-12">
-      <h2 class="text-3xl md:text-4xl lg:text-5xl font-black mb-3 uppercase">Colección Actual</h2>
-      <p class="text-sm md:text-base text-muted-foreground normal-case font-normal tracking-normal">
-        Oversize premium hecho en Medellín
+    <div class="mb-10 md:mb-16 reveal-up">
+      <span class="inline-block text-xs uppercase tracking-[0.2em] text-accent font-bold mb-2">
+        Colección
+      </span>
+      <h2 class="font-display font-bold text-4xl md:text-5xl lg:text-6xl uppercase tracking-tight">
+        Oversize Premium
+      </h2>
+      <p class="text-sm md:text-base text-muted-foreground normal-case font-normal tracking-normal mt-2 max-w-lg">
+        Prendas de alto gramaje con fit relajado. Hecho en Medellín.
       </p>
     </div>
 
-    <div class="product-grid gap-6 lg:gap-8" data-product-grid>
+    <div class="editorial-grid stagger-children" data-product-grid>
       {
-        products.map((product, index) => (
-          <article
-            class="product-card group bg-card border border-border overflow-hidden cursor-pointer transition-all duration-300 hover:shadow-xl hover:-translate-y-1 hover:border-accent focus-within:shadow-xl"
-            data-product-id={product.id}
-            tabindex="0"
-            role="button"
-            aria-label={`Ver detalle de ${product.name}`}
-          >
-            <div class="relative aspect-[4/5] overflow-hidden bg-muted" data-card-carousel>
-              <div class="product-card__image-wrapper">
-                <ProductCarousel images={product.images} alt={product.name} compact />
-              </div>
-            </div>
+        products.map((product, index) => {
+          const cardClass = getCardClass(index);
+          const primaryImage = product.images[0] ?? "";
+          const hoverImage = product.images[1] ?? "";
+          const hasHover = hoverImage.length > 0;
 
-            <div class="product-card__info p-5 lg:p-6">
-              <span class="inline-block mb-3 px-3 py-1.5 text-xs uppercase tracking-wider bg-accent text-white">
-                {product.fabric}
-              </span>
-              <h3 class="text-sm lg:text-base tracking-wide mb-2 font-medium leading-snug">
-                {product.name}
-              </h3>
-              <p class="text-lg md:text-xl lg:text-2xl font-black normal-case tracking-normal">
-                ${product.price} COP
-              </p>
-            </div>
-          </article>
-        ))
+          return (
+            <article
+              class={`editorial-card ${cardClass} ${!hasHover ? "editorial-card--single" : ""}`}
+              data-product-id={product.id}
+              tabindex="0"
+              role="button"
+              aria-label={`Ver detalle de ${product.name}`}
+            >
+              <img
+                src={primaryImage}
+                alt={`${product.name} — vista frontal`}
+                class="editorial-card__image editorial-card__image--primary"
+                loading={index <= 2 ? "eager" : "lazy"}
+                decoding="async"
+              />
+
+              {hasHover && (
+                <img
+                  src={hoverImage}
+                  alt={`${product.name} — vista detalle`}
+                  class="editorial-card__image editorial-card__image--hover"
+                  loading="lazy"
+                  decoding="async"
+                />
+              )}
+
+              <div class="editorial-card__overlay" aria-hidden="true"></div>
+
+              {isNew(index) && (
+                <span class="editorial-card__new-badge">Nuevo</span>
+              )}
+
+              <div class="editorial-card__content">
+                <span class="editorial-card__badge">
+                  {product.fabric}
+                </span>
+                <h3 class="editorial-card__name">
+                  {product.name}
+                </h3>
+                <p class="editorial-card__price">
+                  ${product.price} COP
+                </p>
+              </div>
+
+              <div class="editorial-card__quick-view" aria-hidden="true">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/>
+                </svg>
+              </div>
+            </article>
+          );
+        })
       }
     </div>
 
-    <p class="text-center mt-10 text-sm lg:text-base text-muted-foreground normal-case font-normal tracking-normal">
+    <p class="text-center mt-12 text-sm lg:text-base text-muted-foreground normal-case font-normal tracking-normal reveal-up">
       ¿No encuentras lo que buscas?
       <a
         href="https://wa.me/573148499976"
@@ -96,9 +142,9 @@ const productsJson = JSON.stringify(products);
       </div>
 
       <div class="product-modal__content">
-        <p class="text-xs uppercase tracking-widest text-muted-foreground mb-2">Detalle del producto</p>
-        <h3 id="product-modal-title" class="text-2xl lg:text-3xl font-black uppercase mb-2"></h3>
-        <p id="product-modal-price" class="text-3xl font-black mb-4 normal-case tracking-normal"></p>
+        <p class="text-xs uppercase tracking-[0.2em] text-accent font-bold mb-2">Detalle del producto</p>
+        <h3 id="product-modal-title" class="font-display text-3xl lg:text-4xl font-bold uppercase mb-3 tracking-tight"></h3>
+        <p id="product-modal-price" class="text-3xl font-black mb-5 normal-case tracking-normal"></p>
         <p id="product-modal-description" class="text-muted-foreground normal-case font-normal tracking-normal mb-6 leading-relaxed"></p>
 
         <div class="mb-6">
@@ -154,6 +200,7 @@ const productsJson = JSON.stringify(products);
 
   let lastFocused = null;
   let focusTrapCleanup = null;
+  let selectedSize = "";
 
   function trapFocus(element) {
     const focusableSelectors = [
@@ -171,7 +218,6 @@ const productsJson = JSON.stringify(products);
 
     function handleKeydown(e) {
       if (e.key !== 'Tab') return;
-
       if (e.shiftKey) {
         if (document.activeElement === firstFocusable) {
           e.preventDefault();
@@ -188,9 +234,7 @@ const productsJson = JSON.stringify(products);
     element.addEventListener('keydown', handleKeydown);
     firstFocusable?.focus();
 
-    return () => {
-      element.removeEventListener('keydown', handleKeydown);
-    };
+    return () => element.removeEventListener('keydown', handleKeydown);
   }
 
   function buildCarouselHtml(images, alt, compact) {
@@ -263,7 +307,15 @@ const productsJson = JSON.stringify(products);
     });
   }
 
-  let selectedSize = "";
+  function renderDetails(details) {
+    modalDetails.innerHTML = "";
+    details.forEach((detail) => {
+      const li = document.createElement("li");
+      li.className = "flex items-center gap-2";
+      li.innerHTML = `<span class="w-1.5 h-1.5 rounded-full bg-accent shrink-0" aria-hidden="true"></span>${detail}`;
+      modalDetails.appendChild(li);
+    });
+  }
 
   function updateWhatsAppLink() {
     const whatsappLink = document.getElementById("product-modal-whatsapp");
@@ -303,16 +355,6 @@ const productsJson = JSON.stringify(products);
     focusTrapCleanup = trapFocus(modal);
   }
 
-  function renderDetails(details) {
-    modalDetails.innerHTML = "";
-    details.forEach((detail) => {
-      const li = document.createElement("li");
-      li.className = "flex items-center gap-2";
-      li.innerHTML = `<span class="w-1.5 h-1.5 rounded-full bg-accent shrink-0" aria-hidden="true"></span>${detail}`;
-      modalDetails.appendChild(li);
-    });
-  }
-
   function closeModal() {
     if (!modal) return;
     modal.hidden = true;
@@ -340,9 +382,6 @@ const productsJson = JSON.stringify(products);
         ) {
           return;
         }
-        if (e.target.closest("[data-product-carousel]")?.dataset.suppressClick === "true") {
-          return;
-        }
         openProduct(id);
       });
 
@@ -357,14 +396,13 @@ const productsJson = JSON.stringify(products);
 
   function setupProducts() {
     bindProductCards();
-    window.__initProductCarousels?.(document);
   }
 
   modal?.querySelectorAll("[data-modal-close]").forEach((el) => {
     el.addEventListener("click", closeModal);
   });
 
-  document.getElementById("product-modal-whatsapp")?.addEventListener("click", (e) => {
+  document.getElementById("product-modal-whatsapp")?.addEventListener("click", () => {
     updateWhatsAppLink();
   });
 
@@ -398,25 +436,28 @@ const productsJson = JSON.stringify(products);
   .product-modal__backdrop {
     position: absolute;
     inset: 0;
-    background: rgb(0 0 0 / 0.55);
-    backdrop-filter: blur(4px);
+    background: rgb(0 0 0 / 0.6);
+    backdrop-filter: blur(6px);
   }
 
   .product-modal__panel {
     position: relative;
     z-index: 1;
     width: 100%;
-    max-width: 56rem;
-    max-height: 92vh;
+    max-width: 64rem;
+    max-height: 94vh;
     overflow-y: auto;
     background: var(--background);
-    border: 1px solid var(--border);
+    border-top: 1px solid var(--border);
   }
 
   @media (min-width: 768px) {
     .product-modal {
       align-items: center;
-      padding: 1.5rem;
+      padding: 2rem;
+    }
+    .product-modal__panel {
+      border: 1px solid var(--border);
     }
   }
 
@@ -433,6 +474,12 @@ const productsJson = JSON.stringify(products);
     background: var(--background);
     border: 1px solid var(--border);
     cursor: pointer;
+    transition: background 0.2s;
+  }
+
+  .product-modal__close:hover {
+    background: var(--foreground);
+    color: var(--background);
   }
 
   .product-modal__grid {
@@ -450,17 +497,51 @@ const productsJson = JSON.stringify(products);
     position: relative;
     aspect-ratio: 4 / 5;
     background: var(--muted);
-    min-height: 300px;
+    min-height: 320px;
+    overflow: hidden;
   }
 
   @media (min-width: 768px) {
     .product-modal__media {
       aspect-ratio: auto;
-      min-height: 420px;
+      min-height: 480px;
+      height: 100%;
     }
   }
 
   .product-modal__content {
     padding: 2rem 1.5rem;
+  }
+
+  @media (min-width: 768px) {
+    .product-modal__content {
+      padding: 2.5rem 2rem;
+    }
+  }
+
+  .product-modal__carousel-host {
+    position: absolute;
+    inset: 0;
+  }
+
+  .product-modal__carousel-host .product-carousel {
+    position: absolute;
+    inset: 0;
+  }
+
+  .product-modal__carousel-host .product-carousel__dots {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgb(0 0 0 / 0.45);
+  }
+
+  .product-modal__carousel-host .product-carousel__dot {
+    background: rgb(255 255 255 / 0.4);
+  }
+
+  .product-modal__carousel-host .product-carousel__dot.is-active {
+    background: var(--accent);
   }
 </style>

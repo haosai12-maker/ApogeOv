@@ -1,5 +1,6 @@
 ---
 import "../styles/globals.css";
+import Analytics from "@vercel/analytics/astro";
 
 interface Props {
   title?: string;
@@ -10,8 +11,8 @@ interface Props {
 }
 
 const {
-  title = "ApogeOv — Ropa Oversize Premium Medellín | Tienda Online Colombia",
-  description = "Tienda online de ropa oversize premium en Medellín. Tela burda de alto gramaje. Envío gratis Valle de Aburrá. Paga cuando llega a tu casa.",
+  title = "Camisetas Oversize Básicas Medellín | Combos Streetwear desde $75.000",
+  description = "Camisetas oversize de fábrica premium a $75.000. Combos urbanos con pantaloneta ($115k) y sudadera ($125k). Envíos a Medellín, Envigado, Sabaneta, Bello y todo Colombia.",
   canonicalUrl = "https://apogeov.com",
   ogImage = "/images/Og Web.png",
   noindex = false,
@@ -55,14 +56,14 @@ const fullCanonical = canonicalUrl.startsWith("http") ? canonicalUrl : `${siteUr
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={`${siteUrl}${ogImage}`} />
 
-<script type="application/ld+json">
+    <script type="application/ld+json">
       {
         "@context": "https://schema.org",
         "@type": "Organization",
         "name": "ApogeOv",
         "url": "https://apogeov.com",
         "logo": "https://apogeov.com/favicon.ico",
-        "description": "Tienda online de ropa oversize premium en Medellín. Tela burda de alto gramaje. Envío gratis Valle de Aburrá. Paga cuando llega a tu casa.",
+        "description": "Camisetas oversize de fábrica premium a $75.000. Combos urbanos con pantaloneta ($115k) y sudadera ($125k). Envíos a Medellín, Envigado, Sabaneta, Bello y todo Colombia.",
         "sameAs": [
           "https://www.instagram.com/apogeov/",
           "https://www.tiktok.com/@apogeov",
@@ -89,11 +90,11 @@ const fullCanonical = canonicalUrl.startsWith("http") ? canonicalUrl : `${siteUr
         "@context": "https://schema.org",
         "@type": "Store",
         "name": "ApogeOv",
-        "description": "Tienda online de ropa oversize premium en Medellín. Camisetas, sudaderas y combos de alta calidad para hombre.",
+        "description": "Camisetas oversize de fábrica, combos urbanos y ropa streetwear de alto gramaje. Envíos a Medellín, Envigado, Sabaneta, Bello y todo Colombia.",
         "url": "https://apogeov.com",
         "logo": "https://apogeov.com/favicon.ico",
         "image": "https://apogeov.com/images/Og Web.png",
-        "priceRange": "$$",
+        "priceRange": "$75.000 - $125.000 COP",
         "telephone": "+573148499976",
         "email": "apogeov@gmail.com",
         "address": {
@@ -124,6 +125,7 @@ const fullCanonical = canonicalUrl.startsWith("http") ? canonicalUrl : `${siteUr
         ]
       }
     </script>
+    <slot name="structured-data" />
   </head>
   <body class="min-h-screen bg-background antialiased">
     <a
@@ -146,68 +148,14 @@ const fullCanonical = canonicalUrl.startsWith("http") ? canonicalUrl : `${siteUr
     </a>
 
     <slot />
-    <script is:inline>
-      (function () {
-        var DURATION = 650;
-
-        function easeInOutCubic(t) {
-          return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
-        }
-
-        function animateScrollTo(targetY) {
-          var startY = window.pageYOffset;
-          var distance = targetY - startY;
-          var startTime = performance.now();
-
-          function step(now) {
-            var elapsed = now - startTime;
-            var progress = Math.min(elapsed / DURATION, 1);
-            window.scrollTo(0, startY + distance * easeInOutCubic(progress));
-            if (progress < 1) requestAnimationFrame(step);
-          }
-
-          requestAnimationFrame(step);
-        }
-
-        document.addEventListener("click", function (e) {
-          var link = e.target.closest("a[href]");
-          if (!link) return;
-
-          var href = link.getAttribute("href");
-          if (!href || href.indexOf("#") === -1) return;
-
-          var hashIndex = href.indexOf("#");
-          var pathPart = href.slice(0, hashIndex) || window.location.pathname;
-          var hash = href.slice(hashIndex);
-          var onHome =
-            window.location.pathname === "/" ||
-            window.location.pathname.endsWith("index.html");
-
-          if (pathPart && pathPart !== "/" && pathPart !== window.location.pathname) {
-            return;
-          }
-
-          if (!onHome && pathPart === "/") return;
-
-          e.preventDefault();
-
-          if (hash === "#") {
-            animateScrollTo(0);
-            history.pushState(null, "", "/");
-            return;
-          }
-
-          var target = document.querySelector(hash);
-          if (!target) return;
-
-          var nav = document.querySelector("nav");
-          var offset = (nav ? nav.offsetHeight : 80) + 16;
-          var top = target.getBoundingClientRect().top + window.pageYOffset - offset;
-
-          animateScrollTo(top);
-          history.pushState(null, "", hash);
-        });
-      })();
+    <script>
+      import "../scripts/smooth-scroll.ts";
     </script>
+    <script>
+      import "../scripts/scroll-animations.ts";
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <Analytics />
   </body>
 </html>

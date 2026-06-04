@@ -49,6 +49,11 @@ function buildMailtoUrl(to: string, data: FormData): string {
   return `mailto:${to}?subject=${subject}&body=${body}`;
 }
 
+const FORMSPREE_ID = "mjgzqwek";
+
+const COOLDOWN_MS = 10_000;
+let lastSubmitTime = 0;
+
 async function sendViaFormSubmit(data: FormData): Promise<boolean> {
   const name = sanitizeInput(String(data.get("name") ?? ""));
   const email = sanitizeInput(String(data.get("email") ?? ""));
@@ -57,7 +62,7 @@ async function sendViaFormSubmit(data: FormData): Promise<boolean> {
 
   const safeName = sanitizeSubject(name || "Sin nombre");
 
-  const response = await fetch("https://formspree.io/f/mjgzqwek", {
+  const response = await fetch(`https://formspree.io/f/${FORMSPREE_ID}`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -86,6 +91,20 @@ function initContactForm(): void {
 
   form.addEventListener("submit", async (event) => {
     event.preventDefault();
+
+    const now = Date.now();
+    if (now - lastSubmitTime < COOLDOWN_MS) {
+      const remaining = Math.ceil((COOLDOWN_MS - (now - lastSubmitTime)) / 1000);
+      if (submitBtn) {
+        submitBtn.textContent = `Espera ${remaining}s`;
+        submitBtn.disabled = true;
+        setTimeout(() => {
+          submitBtn.disabled = false;
+          submitBtn.textContent = defaultLabel;
+        }, remaining * 1000);
+      }
+      return;
+    }
 
     successMsg?.classList.add("hidden");
     errorMsg?.classList.add("hidden");
@@ -137,6 +156,7 @@ function initContactForm(): void {
     try {
       const sent = await sendViaFormSubmit(data);
       if (sent) {
+        lastSubmitTime = Date.now();
         form.reset();
         if (submitBtn) submitBtn.textContent = defaultLabel;
         successMsg?.classList.remove("hidden");
