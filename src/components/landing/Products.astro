@@ -12,9 +12,6 @@ function getCardClass(index: number): string {
   return "";
 }
 
-function isNew(index: number): boolean {
-  return index <= 2;
-}
 ---
 
 <section class="bg-background py-20 lg:py-32" id="catalogo">
@@ -66,10 +63,6 @@ function isNew(index: number): boolean {
               )}
 
               <div class="editorial-card__overlay" aria-hidden="true"></div>
-
-              {isNew(index) && (
-                <span class="editorial-card__new-badge">Nuevo</span>
-              )}
 
               <div class="editorial-card__content">
                 <span class="editorial-card__badge">
