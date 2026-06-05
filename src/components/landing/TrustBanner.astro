@@ -60,14 +60,14 @@ import Icon from "../Icon.astro";
     align-items: center;
     justify-content: center;
     border-radius: 50%;
-    background: rgb(232 93 4 / 0.12);
+    background: color-mix(in srgb, var(--accent) 12%, transparent);
     color: var(--accent);
     transition: background 0.3s ease, transform 0.3s ease;
   }
 
   .trust-item:hover .trust-item__icon {
     background: var(--accent);
-    color: white;
+    color: var(--accent-foreground);
     transform: scale(1.05);
   }
 

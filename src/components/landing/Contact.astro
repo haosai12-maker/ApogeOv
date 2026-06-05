@@ -6,7 +6,7 @@ import { contact } from "../../data/contact";
 const whatsappUrl = `https://wa.me/${contact.whatsapp}`;
 
 const channelBtn =
-  "contact-channel-btn flex w-full items-center gap-3 border border-border bg-card px-5 py-3.5 text-sm uppercase tracking-wider transition-all hover:border-foreground hover:shadow-md outline-none focus-visible:ring-2 focus-visible:ring-foreground focus-visible:ring-offset-2";
+  "contact-channel-btn flex w-full items-center gap-3 border border-border bg-card px-5 py-3.5 text-sm uppercase tracking-wider transition-all hover:border-accent hover:shadow-md outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-muted";
 
 const channels = [
   { label: "WhatsApp", href: whatsappUrl, brand: "whatsapp", external: true },
@@ -70,7 +70,7 @@ const channels = [
             required
             autocomplete="name"
             maxlength="100"
-            class="w-full border border-border bg-background px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-accent"
+            class="w-full border border-border bg-card px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-accent"
             placeholder="Tu nombre"
           />
         </div>
@@ -87,7 +87,7 @@ const channels = [
               required
               autocomplete="email"
               maxlength="254"
-              class="w-full border border-border bg-background px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-accent"
+              class="w-full border border-border bg-card px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-accent"
               placeholder="correo@ejemplo.com"
             />
           </div>
@@ -101,7 +101,7 @@ const channels = [
               type="tel"
               autocomplete="tel"
               maxlength="20"
-              class="w-full border border-border bg-background px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-accent"
+              class="w-full border border-border bg-card px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-accent"
               placeholder="+57 300 000 0000"
             />
           </div>
@@ -117,7 +117,7 @@ const channels = [
             required
             rows="4"
             maxlength="2000"
-            class="w-full border border-border bg-background px-4 py-3 text-sm resize-y min-h-[120px] focus:outline-none focus:ring-2 focus:ring-accent"
+            class="w-full border border-border bg-card px-4 py-3 text-sm resize-y min-h-[120px] focus:outline-none focus:ring-2 focus:ring-accent"
             placeholder="Cuéntanos en qué podemos ayudarte..."
           ></textarea>
         </div>
@@ -125,16 +125,16 @@ const channels = [
         <button
           type="submit"
           data-contact-submit
-          class="w-full bg-foreground text-white px-8 py-4 text-sm uppercase tracking-wider hover:bg-accent transition-colors disabled:opacity-60 disabled:cursor-not-allowed cursor-pointer"
+          class="w-full bg-accent text-accent-foreground px-8 py-4 text-sm uppercase tracking-wider hover:brightness-110 transition-all disabled:opacity-60 disabled:cursor-not-allowed cursor-pointer"
         >
           Enviar email
         </button>
 
-        <div data-form-success class="hidden text-center text-sm text-green-600 font-medium py-2">
+        <div data-form-success class="hidden text-center text-sm text-green-400 font-medium py-2">
           ✓ Tu mensaje fue enviado. Te contactaremos pronto.
         </div>
 
-        <div data-form-error class="hidden text-center text-sm text-red-500 font-medium py-2">
+        <div data-form-error class="hidden text-center text-sm text-red-400 font-medium py-2">
           Error al enviar. Intenta de nuevo.
         </div>
 

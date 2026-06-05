@@ -11,9 +11,21 @@
 }
 
 :root {
-  --accent: #e85d04;
-  --accent-foreground: #ffffff;
+  --accent: #f9e100;
+  --accent-foreground: #000000;
   --font-display: "Bebas Neue", system-ui, sans-serif;
+
+  /* Dark VIP palette */
+  --background: #0a0a0a;
+  --foreground: #030213;
+  --card: #141414;
+  --card-foreground: #f5f5f5;
+  --muted: #111111;
+  --muted-foreground: #a3a3a3;
+  --border: rgb(255 255 255 / 0.12);
+  --input-background: #1a1a1a;
+  --input: rgb(255 255 255 / 0.15);
+  --ring: #f9e100;
 }
 
 html {
@@ -28,7 +40,7 @@ section[id] {
 
 body {
   background: var(--background);
-  color: var(--foreground);
+  color: #f5f5f5;
 }
 
 #main-content {

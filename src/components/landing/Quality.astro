@@ -45,19 +45,19 @@
     </div>
 
     <div class="mt-16 lg:mt-20 reveal-up">
-      <div class="bg-accent/5 border border-accent/20 p-8 lg:p-12 max-w-4xl mx-auto">
+      <div class="combo-promo relative overflow-hidden bg-foreground border border-accent/35 p-8 lg:p-12 max-w-4xl mx-auto">
         <span class="inline-block text-xs uppercase tracking-[0.2em] text-accent font-bold mb-3">
           Llévatelo en combo
         </span>
-        <h3 class="font-display font-bold text-3xl md:text-4xl uppercase tracking-tight mb-4">
+        <h3 class="font-display font-bold text-3xl md:text-4xl uppercase tracking-tight mb-4 text-white">
           Arma tu fit completo<br />y ahorra
         </h3>
-        <p class="text-muted-foreground normal-case font-normal tracking-normal leading-relaxed mb-6 max-w-2xl">
-          La camiseta oversize individual es <strong class="text-foreground">$75.000</strong>. Pero si la llevas con pantaloneta a juego, el combo te queda en <strong class="text-accent">$115.000</strong> — solo $40.000 más por dos prendas que juntas arman el fit completo. ¿Prefieres algo más pesado? El combo camiseta + sudadera perchada está en <strong class="text-accent">$125.000</strong>. La mejor relación calidad-precio del streetwear en Medellín.
+        <p class="text-white/70 normal-case font-normal tracking-normal leading-relaxed mb-6 max-w-2xl">
+          La camiseta oversize individual es <strong class="text-white">$75.000</strong>. Pero si la llevas con pantaloneta a juego, el combo te queda en <strong class="text-accent">$115.000</strong> — solo $40.000 más por dos prendas que juntas arman el fit completo. ¿Prefieres algo más pesado? El combo camiseta + sudadera perchada está en <strong class="text-accent">$125.000</strong>. La mejor relación calidad-precio del streetwear en Medellín.
         </p>
         <a
           href="#catalogo"
-          class="inline-flex items-center gap-2 bg-foreground text-white px-8 py-4 text-sm uppercase tracking-wider hover:bg-accent transition-colors"
+          class="inline-flex items-center gap-2 bg-accent text-accent-foreground px-8 py-4 text-sm uppercase tracking-wider hover:brightness-110 transition-all"
         >
           Ver catálogo completo
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-4 h-4">
@@ -72,5 +72,20 @@
 <style>
   .quality-feature + .quality-feature {
     margin-top: 1.5rem;
+  }
+
+  .combo-promo::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background:
+      radial-gradient(circle at top right, rgb(249 225 0 / 0.14), transparent 55%),
+      radial-gradient(circle at bottom left, rgb(249 225 0 / 0.06), transparent 45%);
+  }
+
+  .combo-promo > * {
+    position: relative;
+    z-index: 1;
   }
 </style>

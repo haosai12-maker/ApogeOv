@@ -1,5 +1,5 @@
 export const contact = {
-  whatsapp: import.meta.env.PUBLIC_WHATSAPP || "573148499976",
+  whatsapp: import.meta.env.PUBLIC_WHATSAPP || "573108150734",
   email: import.meta.env.PUBLIC_EMAIL || "apogeov@gmail.com",
   instagram: import.meta.env.PUBLIC_INSTAGRAM || "https://www.instagram.com/apogeov/",
   facebook: import.meta.env.PUBLIC_FACEBOOK || "https://www.facebook.com/profile.php?id=61590387307491",

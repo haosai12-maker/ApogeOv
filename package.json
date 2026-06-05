@@ -8,6 +8,7 @@
     "build": "astro build",
     "preview": "astro preview",
     "check": "astro check",
+    "favicons": "node scripts/generate-favicons.mjs",
     "astro": "astro"
   },
   "packageManager": "pnpm@9.15.0",

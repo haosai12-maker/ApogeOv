@@ -188,7 +188,7 @@
   letter-spacing: 0.12em;
   text-transform: uppercase;
   background: var(--accent);
-  color: white;
+  color: var(--accent-foreground);
   margin-bottom: 0.75rem;
 }
 
